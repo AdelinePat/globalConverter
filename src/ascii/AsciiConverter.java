@@ -28,7 +28,7 @@
 
         public List<List<Integer>> parseStringIntoInt(String user_input) {
             List<List<Integer>> result = new ArrayList<>();
-            String[] words = user_input.trim().split(" ");
+            String[] words = user_input.split(" ");
 
             for (String word : words) {
                 List<Integer> ascii_values = new ArrayList<>();
@@ -45,8 +45,41 @@
                     }
                 }
                 result.add(ascii_values);
-                System.out.println(word + "\n");
+//                System.out.println(word + " ");
             }
             return result;
         }
+        public List<String> fromIntToString(List<List<Integer>> user_input_int) {
+            List<String> result = new ArrayList<>();
+
+            for (List<Integer> word : user_input_int) {
+//            System.out.println(word);
+                StringBuilder ascii_string = new StringBuilder();
+                for (Integer character : word) {
+                    String letter = this.getCharacterByAsciiValue(character);
+                    System.out.print(letter);
+                }
+                System.out.print(" ");
+            }
+
+            // debug
+            System.out.println();
+            for (List<Integer> word : user_input_int) {
+                for (Integer character : word) {
+                    System.out.print(character + " ");
+                }
+                System.out.print(" ");
+            }
+            return result;
+        }
+
+        private String getCharacterByAsciiValue(Integer ascii_value) {
+            for (Map.Entry<String, Integer> entry : ascii_map.entrySet()) {
+                if (entry.getValue().equals(ascii_value)) {
+                    return entry.getKey();
+                }
+            }
+            return "?"; // Return a placeholder if not found
+        }
+
     }
