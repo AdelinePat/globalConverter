@@ -6,6 +6,7 @@ import converters.IConverter;
 import converters.BinaryConverter;
 import converters.OctalConverter;
 import custom_exceptions.UserError;
+import caesar.caesarCipher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ public class Main {
         IConverter binary_converter = new BinaryConverter();
         IConverter octal_converter = new OctalConverter();
         IConverter hexa_converter  = new HexaConverter();
+
+        caesarCipher caesar_cipher = new caesarCipher();
+
         AsciiConverter ascii_converter = new AsciiConverter();
         CleanInput clean_input = new CleanInput();
 
@@ -24,6 +28,10 @@ public class Main {
             List<List<Integer>> ras_le_bol = new ArrayList<>();
             List<String> jenaimarre = new ArrayList<>();
             ras_le_bol = ascii_converter.parseStringIntoInt(clean_input.clean_input);
+            jenaimarre = ascii_converter.fromIntToString(ras_le_bol);
+            ras_le_bol = caesar_cipher.caesarEncrypt(ras_le_bol, 3);
+            jenaimarre = ascii_converter.fromIntToString(ras_le_bol);
+            ras_le_bol = caesar_cipher.caesarEncrypt(ras_le_bol, -3);
             jenaimarre = ascii_converter.fromIntToString(ras_le_bol);
         } catch (UserError e) {
             System.out.println("\u001B[36mErreur utilisateur : \u001B[0m" + e.getMessage());
