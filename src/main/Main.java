@@ -19,7 +19,7 @@ public class Main {
         CleanInput clean_input = new CleanInput();
 
         try {
-            clean_input.getCleanInput("Salut les gens ca va bien ou quoi");
+            clean_input.getCleanInput("Si seulement les RH voulaient bien signer les contrats plus vite");
 
             List<List<Integer>> ras_le_bol = new ArrayList<>();
             List<String> jenaimarre = new ArrayList<>();

@@ -70,7 +70,7 @@
             }
 
 
-            // debug
+            // ######## debug ##########
             System.out.println();
             for (List<Integer> word : user_input_int) {
                 for (Integer character : word) {
@@ -90,7 +90,7 @@
                 }
             }
             if (!isValueFound) {
-                throw new AlgorithmError("Attention, la valeur ASCII n'a pas de clé" +
+                throw new AlgorithmError("Attention, la valeur ASCII n'a pas de clé " +
                         "correspondante dans le ascii_table.json.");
             }
             return ""; // should find a way not to have a return here ???
