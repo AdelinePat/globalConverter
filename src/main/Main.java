@@ -19,14 +19,14 @@ public class Main {
         CleanInput clean_input = new CleanInput();
 
         try {
-            clean_input.getCleanInput("Salut les gens, ca va bien ou quoi");
+            clean_input.getCleanInput("Salut les gens ca va bien ou quoi");
 
             List<List<Integer>> ras_le_bol = new ArrayList<>();
             List<String> jenaimarre = new ArrayList<>();
             ras_le_bol = ascii_converter.parseStringIntoInt(clean_input.clean_input);
             jenaimarre = ascii_converter.fromIntToString(ras_le_bol);
         } catch (UserError e) {
-            System.out.println("Erreur utilisateur : " + e.getMessage());
+            System.out.println("\u001B[36mErreur utilisateur : \u001B[0m" + e.getMessage());
         }
 
 

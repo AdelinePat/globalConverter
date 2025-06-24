@@ -23,7 +23,7 @@
             InputStreamReader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
             ascii_map = gson.fromJson(reader, new TypeToken<Map<String, Integer>>() {}.getType());
-            System.out.println("ASCII Table loaded:" + ascii_map);
+//            System.out.println("ASCII Table loaded:" + ascii_map);
         }
 
         public List<List<Integer>> parseStringIntoInt(String user_input) {
