@@ -28,12 +28,12 @@ public class BinaryConverter implements IConverter {
         // needs to get each element of each list and put them back as a "list of word" and create final string
         return  list_to_string;
     }
-    @Override
-    public List<List<Integer>> parseStringIntoInt(String user_input) {
-        List<List<Integer>> user_input_ascii = new ArrayList<>();
-        /* parse all the word into list of words and then each word are a
-        list of letter so we can treat each letter as an unique value */
-        return user_input_ascii;
-
-    }
+//    @Override
+//    public List<List<Integer>> parseStringIntoInt(String user_input) {
+//        List<List<Integer>> user_input_ascii = new ArrayList<>();
+//        /* parse all the word into list of words and then each word are a
+//        list of letter so we can treat each letter as an unique value */
+//        return user_input_ascii;
+//
+//    }
 }
