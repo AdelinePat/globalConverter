@@ -15,9 +15,8 @@ public class CleanInput {
 
     public void getCleanInput(String raw_user_input) throws UserError {
             if (this.isValidInput(raw_user_input)) {
-                System.out.println("Mdr, y'a des caractères pas accepté");
-                throw new UserError("Des caractères non autorisés ont été utilisé : veuillez utiliser uniquement des " +
-                        "lettres (sans accent) et des chiffres.");
+                throw new UserError("Des caractères non autorisés ont été utilisé. \u001B[33mveuillez utiliser uniquement des " +
+                        "lettres (sans accent) et des chiffres.\u001B[0m");
             } else {
                 raw_user_input = raw_user_input.trim();
                 clean_input = raw_user_input;
