@@ -3,9 +3,19 @@ package caesar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class caesarCipher {
+public class CaesarCipher {
+    private Integer key;
+
+    public List<List<Integer>> caesarEncrypt(List<List<Integer>> user_input_int) {
+        return caesarEncrypt(user_input_int, 0);
+    }
 
     public List<List<Integer>> caesarEncrypt(List<List<Integer>> user_input_int, int offset) {
+        if (offset != 0) {
+            key = offset;
+        } else {
+            key = -key;
+        }
         List<List<Integer>> result = new ArrayList<>();
 
         for (int list_index = 0; list_index < user_input_int.size(); list_index++) {
@@ -30,7 +40,7 @@ public class caesarCipher {
                     max_ascii = 122;
                 }
 
-                new_value += offset;
+                new_value += this.key;
 
                 if (new_value < min_ascii) {
                     while (new_value < min_ascii) {
