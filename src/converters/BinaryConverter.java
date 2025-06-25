@@ -19,12 +19,12 @@ public class BinaryConverter implements IConverter {
         for (List<String> word : parsed_user_string) {
             StringBuilder int_string = new StringBuilder();
             List<String> ascii_string_bin = new ArrayList<>();
-
             for (String letter : word) {
                 int_string.append(letter);
             }
-            user_input_ascii.add(ascii_string_bin);
+
             ascii_string_bin.add(this.conversion(CleanInput.stringToInt(int_string.toString())));
+            user_input_ascii.add(ascii_string_bin);
         }
         return AsciiUtils.concatenateFromString(user_input_ascii);
     }
@@ -32,7 +32,7 @@ public class BinaryConverter implements IConverter {
     @Override
     public String reverseConversion(String user_input_int) {
         List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
-        List<List<String>> back_to_user_input = new ArrayList<>();
+        List<List<Integer>> back_to_user_input_int = new ArrayList<>();
         // impementation for this method : probably needs to call for concatenateString to return it
         return new String();
     }
