@@ -4,6 +4,7 @@ import ascii.CleanInput;
 import converters.*;
 import custom_exceptions.AlgorithmError;
 import custom_exceptions.UserError;
+import caesar.caesarCipher;
 
 import java.util.ArrayList;
 import java.util.List;
