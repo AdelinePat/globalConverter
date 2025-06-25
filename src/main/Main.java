@@ -19,7 +19,7 @@ public class Main {
         CaesarCipher caesar_cipher = new CaesarCipher();
 
         try {
-            String original_user_input = clean_input.getCleanInput("coucou les gens !");
+            String original_user_input = clean_input.getCleanInput("coucou les gens ");
             String user_input_int = decimal_converter.conversion(original_user_input);
             String user_input_bin =  binary_converter.conversion(user_input_int);
             String user_caesar = caesar_cipher.caesarEncrypt(user_input_int, 3);
