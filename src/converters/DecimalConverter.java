@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecimalConverter implements IConverter {
-    public List<List<Integer>> conversion(List<List<String>> parsed_user_string) throws AlgorithmError {
-        List<List<Integer>> result = null;
+    public String conversion(String input_user) throws AlgorithmError {
+        List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
+        List<List<Integer>> result = new ArrayList<>();
         try {
-            result = new ArrayList<>();
             for (List<String> word : parsed_user_string) {
                 List<Integer> ascii_values = new ArrayList<>();
                 for (String c : word) {
@@ -26,10 +26,11 @@ public class DecimalConverter implements IConverter {
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-        return result;
+        return AsciiUtils.concatenateFromInt(result);
     }
 
-    public List<List<String>>  reverseConversion(List<List<Integer>> convertedInput) {
+    public String reverseConversion(String user_input_int) {
+        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
         List<List<String>>  final_string = new ArrayList<>();
         try {
             for (List<Integer> word : convertedInput) {
@@ -43,6 +44,6 @@ public class DecimalConverter implements IConverter {
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-        return final_string;
+        return AsciiUtils.concatenateFromString(final_string);
     }
 }
