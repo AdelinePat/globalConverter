@@ -33,6 +33,7 @@ public class AsciiUtils {
         List<List<String>> result = new ArrayList<>();
         String[] words = user_input.split(" ");
 
+
         for (String word : words) {
             List<String> ascii_letters = new ArrayList<>();
             for (char c : word.toCharArray()) {
@@ -40,18 +41,19 @@ public class AsciiUtils {
             }
             result.add(ascii_letters);
         }
+        result.removeIf(List::isEmpty);
         return result;
     }
 
     public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal) {
         List<List<Integer>> result = new ArrayList<>();
-        String[] words = user_input_decimal.split(" ");
+        String[] words = user_input_decimal.split("  ");
 
         for (String word : words) {
             List<Integer> group_numbers = new ArrayList<>();
-            String[] letter_list = word.split("_");
+            String[] letter_list = word.split(" ");
             for (String c : letter_list) {
-                group_numbers.add(Integer.parseInt(c));
+                group_numbers.add(CleanInput.stringToInt(c));
             }
             result.add(group_numbers);
         }
@@ -76,11 +78,11 @@ public class AsciiUtils {
                 String character = word.get(index).toString();
                 ascii_string.append(character);
                 if (index != word.size() -1 ) {
-                    ascii_string.append("_");
+                    ascii_string.append(" ");
                 }
             }
             final_string.append(ascii_string);
-            final_string.append(" ");
+            final_string.append("  ");
         }
         return final_string.toString().trim();
     }

@@ -1,28 +1,32 @@
 package converters;
 import ascii.AsciiUtils;
+import ascii.CleanInput;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryConverter implements IConverter {
     public BinaryConverter() {
-        // this is a constructor, I swear
         System.out.println("\n***** BinaryConverter constructor lol *****\n");
     }
 
     @Override
     public String conversion(String input_user) {
         List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
+        System.out.println(parsed_user_string);
+        List<List<String>> user_input_ascii = new ArrayList<>();
 
-        List<List<Integer>> user_input_ascii = new ArrayList<>();
         for (List<String> word : parsed_user_string) {
-            for (String letter : word) {
-                Integer value = AsciiUtils.ascii_map.get(letter);
-//                List<Integer> binary_value = this.conversion(value);
+            StringBuilder int_string = new StringBuilder();
+            List<String> ascii_string_bin = new ArrayList<>();
 
+            for (String letter : word) {
+                int_string.append(letter);
             }
+            user_input_ascii.add(ascii_string_bin);
+            ascii_string_bin.add(this.conversion(CleanInput.stringToInt(int_string.toString())));
         }
-        // implemetation for this part, probably needs another method to parse string into list of list
-        return new String();
+        return AsciiUtils.concatenateFromString(user_input_ascii);
     }
 
     @Override
@@ -33,14 +37,37 @@ public class BinaryConverter implements IConverter {
         return new String();
     }
 
-    private void conversion(int decimal_value) {
-        Integer n = 0;
-        List<Integer> bit_position = new ArrayList<>();
-        while (2 << n < decimal_value) {
-            n++;
-            if (2 << n + 1 >= decimal_value) {
-                bit_position.add(n);
+    private String conversion(Integer decimal_value) {
+//        Integer n = this.findBiggestPowerOfTwo(decimal_value);
+        List<Integer> bit_positions = new ArrayList<>();
+        List<Integer> final_bit_value = new ArrayList<>();
+        Integer original_value = decimal_value;
+        StringBuilder decimal_string = new StringBuilder();
+
+        while (decimal_value > 0) {
+            Integer n = this.findBiggestPowerOfTwo(decimal_value);
+            bit_positions.add(n);
+            decimal_value -= (1 << n);
+        }
+
+        Integer highest_bit = this.findBiggestPowerOfTwo(original_value);
+        for (Integer index = highest_bit; index >= 0; index--) {
+            if (bit_positions.contains(index)) {
+                decimal_string.append("1");
+                final_bit_value.add(1);
+            } else {
+                decimal_string.append("0");
+                final_bit_value.add(0);
             }
         }
+        return decimal_string.toString();
+    }
+
+    private Integer findBiggestPowerOfTwo(Integer value) {
+        Integer n = 0;
+        while (1 << (n+1) <= value) {
+            n++;
+        }
+        return n;
     }
 }

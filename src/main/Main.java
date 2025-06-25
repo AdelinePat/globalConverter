@@ -20,12 +20,14 @@ public class Main {
 
         try {
            String user_input_int = decimal_converter.conversion("Coucou les gens");
+           String user_input_bin =  binary_converter.conversion(user_input_int);
            String user_caesar = caesar_cipher.caesarEncrypt(user_input_int, 3);
            String user_caesar_reversed = caesar_cipher.caesarEncrypt(user_caesar);
            String user_readable_caesar = decimal_converter.reverseConversion(user_caesar);
            String user_input_string = decimal_converter.reverseConversion(user_caesar_reversed);
 
            System.out.println("Entrée input d'entrée (num)      : " + user_input_int);
+           System.out.println("Entrée input bin (num)           : " + user_input_bin);
            System.out.println("Entrée après césar (num)         : " + user_caesar);
            System.out.println("Entrée après césar (num)         : " + user_readable_caesar);
            System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
