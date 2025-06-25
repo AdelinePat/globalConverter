@@ -13,7 +13,6 @@ public class BinaryConverter implements IConverter {
     @Override
     public String conversion(String input_user) {
         List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
-        System.out.println(parsed_user_string);
         List<List<String>> user_input_ascii = new ArrayList<>();
 
         for (List<String> word : parsed_user_string) {
@@ -31,10 +30,24 @@ public class BinaryConverter implements IConverter {
 
     @Override
     public String reverseConversion(String user_input_int) {
-        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
-        List<List<Integer>> back_to_user_input_int = new ArrayList<>();
+        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int, 0);
+        StringBuilder final_string = new StringBuilder();
+        for (List<Integer> value: convertedInput) {
+            Integer result = 0;
+            List<Integer> reversed_value = value.reversed();
+            for (Integer index = 0; index < reversed_value.size(); index++) {
+                if (reversed_value.get(index) != 0) {
+                    result += 1 << index;
+                }
+            }
+            final_string.append(result);
+            final_string.append(" ");
+//            System.out.println("Valeur : " + result);
+//            System.out.println(reversed_value);
+        }
+
         // impementation for this method : probably needs to call for concatenateString to return it
-        return new String();
+        return final_string.toString();
     }
 
     private String conversion(Integer decimal_value) {

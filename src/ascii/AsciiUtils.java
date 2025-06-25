@@ -44,7 +44,19 @@ public class AsciiUtils {
         result.removeIf(List::isEmpty);
         return result;
     }
+    public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal, Integer choice) {
+        List<List<Integer>> result = new ArrayList<>();
+        String[] words = user_input_decimal.split(" ");
 
+        for (String word : words) {
+            List<Integer> group_numbers = new ArrayList<>();
+            for (int index = 0; index < word.length(); index++) {
+                group_numbers.add(CleanInput.stringToInt(String.valueOf(word.charAt(index))));
+            }
+            result.add(group_numbers);
+        }
+        return result;
+    }
     public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal) {
         List<List<Integer>> result = new ArrayList<>();
         String[] words = user_input_decimal.split("  ");
