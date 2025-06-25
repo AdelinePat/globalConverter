@@ -1,16 +1,20 @@
 package caesar;
 
+import ascii.AsciiUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CaesarCipher {
     private Integer key;
 
-    public List<List<Integer>> caesarEncrypt(List<List<Integer>> user_input_int) {
+    public String caesarEncrypt(String user_input_int) {
         return caesarEncrypt(user_input_int, 0);
     }
 
-    public List<List<Integer>> caesarEncrypt(List<List<Integer>> user_input_int, int offset) {
+    public String caesarEncrypt(String user_input_int, int offset) {
+        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
+
         if (offset != 0) {
             key = offset;
         } else {
@@ -18,13 +22,13 @@ public class CaesarCipher {
         }
         List<List<Integer>> result = new ArrayList<>();
 
-        for (int list_index = 0; list_index < user_input_int.size(); list_index++) {
+        for (int list_index = 0; list_index < convertedInput.size(); list_index++) {
 
             List<Integer> word_result = new ArrayList<>();
 
-            for (int value_index = 0; value_index < user_input_int.get(list_index).size(); value_index++) {
+            for (int value_index = 0; value_index < convertedInput.get(list_index).size(); value_index++) {
 
-                int new_value = user_input_int.get(list_index).get(value_index);
+                int new_value = convertedInput.get(list_index).get(value_index);
                 int min_ascii = 0, max_ascii = 0;
 
                 if (48 <= new_value && new_value <= 57) {
@@ -57,6 +61,6 @@ public class CaesarCipher {
             }
             result.add(word_result);
         }
-        return result;
+        return AsciiUtils.concatenateFromInt(result);
     }
 }

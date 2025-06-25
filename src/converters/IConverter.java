@@ -4,6 +4,6 @@ import custom_exceptions.AlgorithmError;
 import java.util.List;
 
 public interface IConverter {
-    public List<List<Integer>> conversion(List<List<String>> parsed_user_string) throws AlgorithmError;
-    public List<List<String>>  reverseConversion(List<List<Integer>> convertedInput);
+    public String conversion(String input_user) throws AlgorithmError;
+    public String  reverseConversion(String user_input_int);
 }
