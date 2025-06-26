@@ -41,4 +41,22 @@ public class Parsing {
         }
         return result;
     }
+
+    public static List<List<String>> parseGroupStrings(String user_input) {
+        List<List<String>> result = new ArrayList<>();
+        String[] words = user_input.split(" {2}"); // double space = word split
+
+        for (String word : words) {
+            List<String> group = new ArrayList<>();
+            String[] parts = word.trim().split(" "); // single space = number split
+            for (String part : parts) {
+                if (!part.isEmpty()) {
+                    group.add(part); // keep as string
+                }
+            }
+            result.add(group);
+        }
+
+        return result;
+    }
 }
