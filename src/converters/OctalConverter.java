@@ -13,17 +13,58 @@ public class OctalConverter implements IConverter {
 
         @Override
         public String conversion(String input_user) {
-            List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
-            List<List<Integer>> user_input_ascii = new ArrayList<>();
+
+            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(input_user);
+
+            StringBuilder return_string = new StringBuilder();
+
+            for (int list_index = 0; list_index < parsed_user_string.size(); list_index++) {
+
+                for (int letter : parsed_user_string.get(list_index)) {
+                    return_string.append(conversion(letter));
+
+                    if (parsed_user_string.get(list_index).indexOf(letter) != parsed_user_string.get(list_index).size() - 1) {
+                        return_string.append(" ");
+                    }
+                }
+                if (list_index != parsed_user_string.size() - 1) {
+                    return_string.append("  ");
+                }
+            }
+
             // implemetation for this part, probably needs another method to parse string into list of list
-            return new String();
+            return return_string.toString();
         }
 
         @Override
         public String reverseConversion(String user_input_int) {
+
             List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
+
             List<List<String>> back_to_user_input = new ArrayList<>();
+
             // impementation for this method : probably needs to call for concatenateString to return it
             return new String();
+        }
+
+        private String conversion(Integer decimal_value) {
+
+            int divided_value = decimal_value;
+            List<Integer> octal_result = new ArrayList<>();
+
+            while (divided_value != 0) {
+                int result = divided_value % 8;
+                divided_value /= 8;
+                octal_result.add(result);
+            }
+
+            List<Integer>return_list_int = octal_result.reversed();
+            StringBuilder return_value = new StringBuilder();
+
+            for (int values :  return_list_int) {
+                return_value.append(values);
+            }
+
+            return return_value.toString();
         }
     }
