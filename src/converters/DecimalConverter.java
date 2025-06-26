@@ -31,7 +31,6 @@ public class DecimalConverter implements IConverter {
 
     public String reverseConversion(String user_input_int) {
         List<List<Integer>> convertedInput = Parsing.parseGroupNumbers(user_input_int);
-        System.out.println("List<List<Integer> = " + convertedInput);
         List<List<String>>  final_string = new ArrayList<>();
         try {
             for (List<Integer> word : convertedInput) {
