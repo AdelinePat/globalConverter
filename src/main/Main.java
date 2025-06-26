@@ -20,15 +20,19 @@ public class Main {
         CaesarCipher caesar_cipher = new CaesarCipher();
 
         try {
-            String original_user_input = clean_input.getCleanInput("Vas y Jolyne tu geres");
+            String original_user_input = clean_input.getCleanInput("Hello world");
             System.out.println("Split original string : " + Parsing.splitSentenceIntoLetterGroups(original_user_input));
             String user_input_int = decimal_converter.conversion(original_user_input);
             String user_input_int_reversed = decimal_converter.reverseConversion(user_input_int);
             System.out.println("ascii vers int : " + user_input_int);
             System.out.println("int vers ascii ? " + user_input_int_reversed);
             System.out.println("parsing en groupe de nombre : " + Parsing.parseGroupNumbers(user_input_int));
-//            String user_input_bin =  binary_converter.conversion(user_input_int);
-//
+            String user_input_bin =  binary_converter.conversion(user_input_int);
+            System.out.println("binaire : " + user_input_bin);
+            String user_input_bin_reversed = binary_converter.reverseConversion(user_input_bin);
+            System.out.println("binaire reverse : " + user_input_bin_reversed);
+            System.out.println("de binaire reverse à ascii : " + decimal_converter.reverseConversion(user_input_bin_reversed));
+
 //            String user_caesar = caesar_cipher.caesarEncrypt(user_input_int, 3);
 //            String user_caesar_reversed = caesar_cipher.caesarEncrypt(user_caesar);
 //            String user_readable_caesar = decimal_converter.reverseConversion(user_caesar);
