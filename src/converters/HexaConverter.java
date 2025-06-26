@@ -83,13 +83,22 @@ public class HexaConverter implements IConverter {
         return String.join(" ", result).trim();
     }
 
+
     @Override
     public String reverseConversion(String user_input_hex) {
-        String[] hexCodes = user_input_hex.trim().split("\\s+");
-        List<String> decodedChars = new ArrayList<>();
+        String[] hexCodes = user_input_hex.trim().split(" ", -1);
+        List<String> currentWord = new ArrayList<>();
+        List<String> fullMessage = new ArrayList<>();
+
         try {
             for (String hexCode : hexCodes) {
-                if (hexCode.isEmpty()) continue;
+                if (hexCode.isEmpty()) {
+                    // Fin d'un mot, on l'ajoute à la liste et on réinitialise
+                    fullMessage.add(String.join("", currentWord));
+                    currentWord.clear();
+                    continue;
+                }
+
                 int decimalValue = 0;
                 for (int i = 0; i < hexCode.length(); i++) {
                     String hexChar = hexCode.substring(i, i + 1).toUpperCase();
@@ -99,13 +108,23 @@ public class HexaConverter implements IConverter {
                     }
                     decimalValue = decimalValue * 16 + val;
                 }
+
                 String letter = AsciiUtils.getCharacterByAsciiValue(decimalValue);
-                decodedChars.add(letter);
+                currentWord.add(letter);
             }
+
+            // Ajouter le dernier mot s’il n’y a pas d’espace final
+            if (!currentWord.isEmpty()) {
+                fullMessage.add(String.join("", currentWord));
+            }
+
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-        return String.join(" ", decodedChars);
+
+        // Rejoint les mots avec un seul espace
+        return String.join(" ", fullMessage);
     }
+
 
 }
