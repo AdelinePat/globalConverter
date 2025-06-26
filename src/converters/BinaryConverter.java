@@ -7,28 +7,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryConverter implements IConverter {
-    public BinaryConverter() {
-        System.out.println("\n***** BinaryConverter constructor lol *****\n");
+    public BinaryConverter() {}
+
+    private String decimalToBinary(Integer decimal_value) {
+        StringBuilder binary_string = new StringBuilder();
+        Integer remainder = 0;
+        while (decimal_value > 0) {
+            remainder = decimal_value % 2;
+            binary_string.insert(0, remainder);
+            decimal_value = decimal_value / 2;
+        }
+        return binary_string.toString();
+    }
+
+    private Integer binaryToDecimal(String binary_string) {
+        Integer result = 0;
+        for (Integer index = binary_string.length() - 1; index >= 0; index--) {
+            if (binary_string.charAt(index) != '0') {
+                result += 1 << binary_string.length() - 1 - index;
+            }
+        }
+        return result;
     }
 
     @Override
     public String conversion(String input_user) {
         List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(input_user);
         StringBuilder user_input_ascii = new StringBuilder();
-
         for (List<Integer> group_number : parsed_user_string) {
             StringBuilder int_string = new StringBuilder();
-            List<String> ascii_string_bin = new ArrayList<>();
-
             for (Integer ascii_value : group_number) {
-                int_string.append(this.conversion(ascii_value));
+                int_string.append(this.decimalToBinary(ascii_value));
                 int_string.append(" ");
             }
-
             user_input_ascii.append(int_string);
             user_input_ascii.append(" ");
         }
-
         return user_input_ascii.toString();
     }
 
@@ -36,53 +50,13 @@ public class BinaryConverter implements IConverter {
     public String reverseConversion(String user_input_int) {
         List<List<String>> convertedInput = Parsing.parseGroupStrings(user_input_int);
         StringBuilder final_string = new StringBuilder();
-
         for (List<String> group: convertedInput) {
-            for (String binaryStr : group) {
-                Integer result = 0;
-                for (Integer index = binaryStr.length() - 1; index >= 0; index--) {
-                    if (binaryStr.charAt(index) != '0') {
-                        result += 1 << binaryStr.length() - 1 - index;
-                    }
-                }
-                final_string.append(String.valueOf(result));
-                final_string.append(String.valueOf(" "));
+            for (String binary_string : group) {
+                final_string.append(this.binaryToDecimal(binary_string));
+                final_string.append(" ");
             }
             final_string.append(" ");
         }
         return final_string.toString();
-    }
-
-    private String conversion(Integer decimal_value) {
-        List<Integer> bit_positions = new ArrayList<>();
-        List<Integer> final_bit_value = new ArrayList<>();
-        Integer original_value = decimal_value;
-        StringBuilder decimal_string = new StringBuilder();
-
-        while (decimal_value > 0) {
-            Integer n = this.findBiggestPowerOfTwo(decimal_value);
-            bit_positions.add(n);
-            decimal_value -= (1 << n);
-        }
-
-        Integer highest_bit = this.findBiggestPowerOfTwo(original_value);
-        for (Integer index = highest_bit; index >= 0; index--) {
-            if (bit_positions.contains(index)) {
-                decimal_string.append("1");
-                final_bit_value.add(1);
-            } else {
-                decimal_string.append("0");
-                final_bit_value.add(0);
-            }
-        }
-        return decimal_string.toString();
-    }
-
-    private Integer findBiggestPowerOfTwo(Integer value) {
-        Integer n = 0;
-        while (1 << (n+1) <= value) {
-            n++;
-        }
-        return n;
     }
 }

@@ -20,7 +20,7 @@ public class Main {
         CaesarCipher caesar_cipher = new CaesarCipher();
 
         try {
-            String original_user_input = clean_input.getCleanInput("Hello world");
+            String original_user_input = clean_input.getCleanInput("Salutation le monde");
 
             // Test Decimal
             String user_input_int = decimal_converter.conversion(original_user_input);
