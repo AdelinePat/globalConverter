@@ -36,11 +36,11 @@ public class Main {
 //            String user_readable_caesar = decimal_converter.reverseConversion(user_caesar);
 //            System.out.println("Entrée après césar remis en int  : " + user_readable_caesar);
 
-            // Test conversion Hexa
-//            String user_input_hex = hexa_converter.conversion(original_user_input);
-//            String user_input_hex_reverse = hexa_converter.reverseConversion(user_input_hex);
-//            System.out.println("Conversion Hexa                  : " + user_input_hex);
-//            System.out.println("Conversion Hexa reverse          : " + user_input_hex_reverse);
+//             Test conversion Hexa
+            String user_input_hex = hexa_converter.conversion(original_user_input);
+            String user_input_hex_reverse = hexa_converter.reverseConversion(user_input_hex);
+            System.out.println("Conversion Hexa                  : " + user_input_hex);
+            System.out.println("Conversion Hexa reverse          : " + user_input_hex_reverse);
 
             // Test Octal
             String user_input_octal = octal_converter.conversion(user_input_int);
