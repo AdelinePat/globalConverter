@@ -14,7 +14,7 @@ public class HexaConverter implements IConverter {
     private static final Map<String, String> intToHex = new HashMap<>();
 
     static {
-        // Remplissage de la map hexToInt
+        // map hexToInt
         hexToInt.put("0", 0);
         hexToInt.put("1", 1);
         hexToInt.put("2", 2);
@@ -32,7 +32,7 @@ public class HexaConverter implements IConverter {
         hexToInt.put("E", 14);
         hexToInt.put("F", 15);
 
-        // Remplissage de la map intToHex (inverse)
+        // Filling the intToHex map (inverse mapping)
         for (Map.Entry<String, Integer> entry : hexToInt.entrySet()) {
             intToHex.put(entry.getValue().toString(), entry.getKey());
         }
@@ -42,7 +42,7 @@ public class HexaConverter implements IConverter {
         System.out.println("\n***** HexaConverter constructor lol *****\n");
     }
 
-    // Convertit un entier décimal en chaîne hexadécimale (sans utiliser les fonctions système)
+    // Converts a decimal integer into a hexadecimal string
     private String decimalToHexManual(int value) {
         if (value == 0) {
             return "0";
@@ -60,7 +60,7 @@ public class HexaConverter implements IConverter {
     @Override
     public String conversion(String input_user) throws AlgorithmError {
         List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
-        List<String> result = new ArrayList<>();  // liste plate
+        List<String> result = new ArrayList<>();
 
         try {
             for (List<String> word : parsed_user_string) {
@@ -72,14 +72,14 @@ public class HexaConverter implements IConverter {
                     String hex_code = decimalToHexManual(ascii_code);
                     result.add(hex_code);
                 }
-                // ajouter un séparateur de mot, par exemple une double espace
-                result.add(""); // vide pour un espace de séparation
+
+                result.add("");
             }
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
 
-        // Join avec un espace simple (ou double pour séparation mots)
+
         return String.join(" ", result).trim();
     }
 
@@ -89,7 +89,7 @@ public class HexaConverter implements IConverter {
         List<String> decodedChars = new ArrayList<>();
         try {
             for (String hexCode : hexCodes) {
-                if (hexCode.isEmpty()) continue; // ignorer séparateurs vides
+                if (hexCode.isEmpty()) continue;
                 int decimalValue = 0;
                 for (int i = 0; i < hexCode.length(); i++) {
                     String hexChar = hexCode.substring(i, i + 1).toUpperCase();
