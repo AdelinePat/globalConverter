@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HexaConverter implements IConverter {
+    public HexaConverter() {}
 
     private static final Map<String, Integer> hexToInt = new HashMap<>();
     private static final Map<String, String> intToHex = new HashMap<>();
@@ -36,10 +37,6 @@ public class HexaConverter implements IConverter {
         for (Map.Entry<String, Integer> entry : hexToInt.entrySet()) {
             intToHex.put(entry.getValue().toString(), entry.getKey());
         }
-    }
-
-    public HexaConverter() {
-        System.out.println("\n***** HexaConverter constructor lol *****\n");
     }
 
     // Converts a decimal integer into a hexadecimal string
