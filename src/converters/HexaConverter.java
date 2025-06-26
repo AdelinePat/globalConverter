@@ -14,7 +14,7 @@ public class HexaConverter implements IConverter {
     private static final Map<String, String> intToHex = new HashMap<>();
 
     static {
-        // HEX_TO_INT
+        // Remplissage de la map hexToInt
         hexToInt.put("0", 0);
         hexToInt.put("1", 1);
         hexToInt.put("2", 2);
@@ -32,18 +32,17 @@ public class HexaConverter implements IConverter {
         hexToInt.put("E", 14);
         hexToInt.put("F", 15);
 
-        // INT_TO_HEX
+        // Remplissage de la map intToHex (inverse)
         for (Map.Entry<String, Integer> entry : hexToInt.entrySet()) {
             intToHex.put(entry.getValue().toString(), entry.getKey());
         }
     }
 
     public HexaConverter() {
-        // this is a constructor,
         System.out.println("\n***** HexaConverter constructor lol *****\n");
     }
 
-    // méthod for convert hex in int
+    // Convertit un entier décimal en chaîne hexadécimale (sans utiliser les fonctions système)
     private String decimalToHexManual(int value) {
         if (value == 0) {
             return "0";
@@ -51,7 +50,7 @@ public class HexaConverter implements IConverter {
         StringBuilder hex = new StringBuilder();
         while (value > 0) {
             int remainder = value % 16;
-            String hexDigit = intToHex.get(Integer.toString(remainder)); // utilisation de la map
+            String hexDigit = intToHex.get(Integer.toString(remainder));
             hex.insert(0, hexDigit);
             value /= 16;
         }
@@ -61,34 +60,52 @@ public class HexaConverter implements IConverter {
     @Override
     public String conversion(String input_user) throws AlgorithmError {
         List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
-        List<List<String>> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();  // liste plate
 
         try {
             for (List<String> word : parsed_user_string) {
-                List<String> hex_values = new ArrayList<>();
                 for (String c : word) {
                     Integer ascii_code = AsciiUtils.ascii_map.get(c);
                     if (ascii_code == null) {
                         throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
                     }
-
                     String hex_code = decimalToHexManual(ascii_code);
-                    hex_values.add(hex_code);
+                    result.add(hex_code);
                 }
-                result.add(hex_values);
+                // ajouter un séparateur de mot, par exemple une double espace
+                result.add(""); // vide pour un espace de séparation
             }
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
 
-        return AsciiUtils.concatenateFromString(result);
+        // Join avec un espace simple (ou double pour séparation mots)
+        return String.join(" ", result).trim();
     }
 
     @Override
-    public String reverseConversion(String user_input_int) {
-        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
-        List<List<String>> back_to_user_input = new ArrayList<>();
-        // impementation for this method : probably needs to call for concatenateString to return it
-        return new String();
+    public String reverseConversion(String user_input_hex) {
+        String[] hexCodes = user_input_hex.trim().split("\\s+");
+        List<String> decodedChars = new ArrayList<>();
+        try {
+            for (String hexCode : hexCodes) {
+                if (hexCode.isEmpty()) continue; // ignorer séparateurs vides
+                int decimalValue = 0;
+                for (int i = 0; i < hexCode.length(); i++) {
+                    String hexChar = hexCode.substring(i, i + 1).toUpperCase();
+                    Integer val = hexToInt.get(hexChar);
+                    if (val == null) {
+                        throw new AlgorithmError("Caractère hexadécimal invalide : " + hexChar);
+                    }
+                    decimalValue = decimalValue * 16 + val;
+                }
+                String letter = AsciiUtils.getCharacterByAsciiValue(decimalValue);
+                decodedChars.add(letter);
+            }
+        } catch (AlgorithmError e) {
+            System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
+        }
+        return String.join(" ", decodedChars);
     }
+
 }

@@ -37,10 +37,19 @@ public class Main {
             System.out.println("Entrée après césar (num)         : " + user_caesar);
             String user_input_hex = hexa_converter.conversion(original_user_input);
             System.out.println("Conversion Hexa : " + user_input_hex);
+            System.out.println("Conversion Hexa : " + user_input_hex);
             System.out.println("Entrée après césar (num)         : " + user_readable_caesar);
             System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
             System.out.println("Entrée input de base (char)      : " + user_input_string);
             System.out.println("Entrée bin to int (num)          : " + user_bin_to_int);
+
+            System.out.println("Conversion Hexa : " + user_input_hex);
+
+// Appel de reverseConversion
+            String decoded_text = hexa_converter.reverseConversion(user_input_hex);
+            System.out.println("Reverse Conversion Hexa : " + decoded_text);
+
+
 
         }
         catch (UserError e) {
