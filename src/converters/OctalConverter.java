@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OctalConverter implements IConverter {
-    public OctalConverter() {
-        // this is a constructor, I swear
-        System.out.println("\n***** OctalConverter constructor lol *****\n");
-    }
+    public OctalConverter() {}
 
         @Override
         public String conversion(String input_user) {
