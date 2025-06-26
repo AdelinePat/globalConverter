@@ -29,6 +29,7 @@ public class Main {
             String user_input_string = decimal_converter.reverseConversion(user_caesar_reversed);
 
             String user_bin_to_int = binary_converter.reverseConversion(user_input_bin);
+            String user_input_octal = octal_converter.conversion(user_input_int);
 
             System.out.println("Entrée input d'entrée (num)      : " + user_input_int);
             System.out.println("Entrée input bin (num)           : " + user_input_bin);
@@ -37,6 +38,7 @@ public class Main {
             System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
             System.out.println("Entrée input de base (char)      : " + user_input_string);
             System.out.println("Entrée bin to int (num)          : " + user_bin_to_int);
+            System.out.println("Entrée input octal (num)         : " + user_input_octal);
 
         }
         catch (UserError e) {
