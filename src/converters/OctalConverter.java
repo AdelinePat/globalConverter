@@ -32,19 +32,32 @@ public class OctalConverter implements IConverter {
                 }
             }
 
-            // implemetation for this part, probably needs another method to parse string into list of list
             return return_string.toString();
         }
 
         @Override
         public String reverseConversion(String user_input_int) {
 
-            List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
+            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(user_input_int);
 
-            List<List<String>> back_to_user_input = new ArrayList<>();
+            StringBuilder return_string = new StringBuilder();
 
-            // impementation for this method : probably needs to call for concatenateString to return it
-            return new String();
+            for (int list_index = 0; list_index < parsed_user_string.size(); list_index++) {
+
+                for (int letter : parsed_user_string.get(list_index)) {
+
+                    return_string.append(reverseConversion(letter));
+
+                    if (parsed_user_string.get(list_index).indexOf(letter) != parsed_user_string.get(list_index).size() - 1) {
+                        return_string.append(" ");
+                    }
+                }
+                if (list_index != parsed_user_string.size() - 1) {
+                    return_string.append("  ");
+                }
+            }
+
+            return return_string.toString();
         }
 
         private String conversion(Integer decimal_value) {
@@ -66,5 +79,20 @@ public class OctalConverter implements IConverter {
             }
 
             return return_value.toString();
+        }
+
+        private String reverseConversion(Integer octal_value) {
+
+            int divided_value =  octal_value;
+            int factor = 1;
+            int octal_result = 0;
+
+            while (divided_value != 0) {
+                octal_result += (divided_value % 10) * factor;
+                divided_value /= 10;
+                factor *= 8;
+            }
+
+            return Integer.toString(octal_result);
         }
     }
