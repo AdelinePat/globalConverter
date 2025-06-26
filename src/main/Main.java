@@ -21,65 +21,40 @@ public class Main {
 
         try {
             String original_user_input = clean_input.getCleanInput("Hello world");
-            System.out.println("Split original string : " + Parsing.splitSentenceIntoLetterGroups(original_user_input));
+
+            // Test Decimal
             String user_input_int = decimal_converter.conversion(original_user_input);
-            String user_input_int_reversed = decimal_converter.reverseConversion(user_input_int);
-            System.out.println("ascii vers int : " + user_input_int);
-            System.out.println("int vers ascii ? " + user_input_int_reversed);
-            System.out.println("parsing en groupe de nombre : " + Parsing.parseGroupNumbers(user_input_int));
-            String user_input_bin =  binary_converter.conversion(user_input_int);
-<<<<<<< HEAD
-            // Test conversion Hexa
+            System.out.println("Entrée input d'entrée (num)      : " + user_input_int);
 
-=======
-            System.out.println("binaire : " + user_input_bin);
-            String user_input_bin_reversed = binary_converter.reverseConversion(user_input_bin);
-            System.out.println("binaire reverse : " + user_input_bin_reversed);
-            System.out.println("de binaire reverse à ascii : " + decimal_converter.reverseConversion(user_input_bin_reversed));
->>>>>>> fix_parsing
-
+            // Test Caesar cipher
 //            String user_caesar = caesar_cipher.caesarEncrypt(user_input_int, 3);
 //            String user_caesar_reversed = caesar_cipher.caesarEncrypt(user_caesar);
-//            String user_readable_caesar = decimal_converter.reverseConversion(user_caesar);
-//            String user_input_string = decimal_converter.reverseConversion(user_caesar_reversed);
-//
-//            String user_bin_to_int = binary_converter.reverseConversion(user_input_bin);
+//            System.out.println("Entrée après césar (clé de 3)    : " + user_caesar);
+//            System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
 
-<<<<<<< HEAD
-            String user_bin_to_int = binary_converter.reverseConversion(user_input_bin);
+            // Test Decimal after caesar cipher
+//            String user_readable_caesar = decimal_converter.reverseConversion(user_caesar);
+//            System.out.println("Entrée après césar remis en int  : " + user_readable_caesar);
+
+            // Test conversion Hexa
+//            String user_input_hex = hexa_converter.conversion(original_user_input);
+//            String user_input_hex_reverse = hexa_converter.reverseConversion(user_input_hex);
+//            System.out.println("Conversion Hexa                  : " + user_input_hex);
+//            System.out.println("Conversion Hexa reverse          : " + user_input_hex_reverse);
+
+            // Test Octal
             String user_input_octal = octal_converter.conversion(user_input_int);
             String user_octal_to_int = octal_converter.reverseConversion(user_input_octal);
-
-            System.out.println("Entrée input d'entrée (num)      : " + user_input_int);
-            System.out.println("Entrée input bin (num)           : " + user_input_bin);
-            System.out.println("Entrée après césar (num)         : " + user_caesar);
-            String user_input_hex = hexa_converter.conversion(original_user_input);
-            System.out.println("Conversion Hexa : " + user_input_hex);
-            System.out.println("Conversion Hexa : " + user_input_hex);
-            System.out.println("Entrée après césar (num)         : " + user_readable_caesar);
-            System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
-            System.out.println("Entrée input de base (char)      : " + user_input_string);
-            System.out.println("Entrée bin to int (num)          : " + user_bin_to_int);
             System.out.println("Entrée input octal (num)         : " + user_input_octal);
             System.out.println("Entrée octal to int (num)        : " + user_octal_to_int);
+            System.out.println("Entrée int to char               : " + decimal_converter.reverseConversion(user_octal_to_int));
 
-            System.out.println("Conversion Hexa : " + user_input_hex);
-
-// Appel de reverseConversion
-            String decoded_text = hexa_converter.reverseConversion(user_input_hex);
-            System.out.println("Reverse Conversion Hexa : " + decoded_text);
-
-
-=======
-//            System.out.println("Entrée input d'entrée (num)      : " + user_input_int);
-//            System.out.println("Entrée input bin (num)           : " + user_input_bin);
-//            System.out.println("Entrée après césar (num)         : " + user_caesar);
-//            System.out.println("Entrée après césar (num)         : " + user_readable_caesar);
-//            System.out.println("Entrée après césar inverse (num) : " + user_caesar_reversed);
-//            System.out.println("Entrée input de base (char)      : " + user_input_string);
-//            System.out.println("Entrée bin to int (num)          : " + user_bin_to_int);
->>>>>>> fix_parsing
-
+            // Test Binary
+            String user_input_bin = binary_converter.conversion(user_input_int);
+            String user_bin_to_int = binary_converter.reverseConversion(user_input_bin);
+            System.out.println("Entrée int > bin (num)           : " + user_input_bin);
+            System.out.println("Entrée bin > int (num)           : " + user_bin_to_int);
+            System.out.println("Entrée int to char               : " + decimal_converter.reverseConversion(user_bin_to_int));
         }
         catch (UserError e) {
             System.out.println("\u001B[36mErreur utilisateur : \u001B[0m " + e.getMessage());

@@ -58,7 +58,6 @@ public class AsciiUtils {
             result.add(ascii_letters);
         }
         result.removeIf(List::isEmpty);
-        System.out.println("Dans le parsing de base : " + result);
         return result;
     }
     public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal, Integer choice) {
@@ -72,7 +71,6 @@ public class AsciiUtils {
             }
             result.add(group_numbers);
         }
-        System.out.println("parseStringIntoIntList : " + result);
         return result;
     }
     public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal) {
@@ -87,7 +85,6 @@ public class AsciiUtils {
             }
             result.add(group_numbers);
         }
-        System.out.println("parseStringIntoIntList : " + result);
         return result;
     }
 
