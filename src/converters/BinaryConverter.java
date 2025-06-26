@@ -14,32 +14,27 @@ public class BinaryConverter implements IConverter {
     @Override
     public String conversion(String input_user) {
         List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(input_user);
-        System.out.println("dans binaire conversion : " + parsed_user_string);
-//        List<List<String>> user_input_ascii = new ArrayList<>();
         StringBuilder user_input_ascii = new StringBuilder();
 
         for (List<Integer> group_number : parsed_user_string) {
             StringBuilder int_string = new StringBuilder();
             List<String> ascii_string_bin = new ArrayList<>();
+
             for (Integer ascii_value : group_number) {
-//                ascii_string_bin.add(this.conversion(ascii_value));
                 int_string.append(this.conversion(ascii_value));
                 int_string.append(" ");
             }
+
             user_input_ascii.append(int_string);
             user_input_ascii.append(" ");
-
-//            ascii_string_bin.add(this.conversion(CleanInput.stringToInt(int_string.toString())));
-//            user_input_ascii.add(ascii_string_bin);
         }
-//        return AsciiUtils.concatenateFromString(user_input_ascii);
+
         return user_input_ascii.toString();
     }
 
     @Override
     public String reverseConversion(String user_input_int) {
         List<List<String>> convertedInput = Parsing.parseGroupStrings(user_input_int);
-        System.out.println("list de list de string début reverse conversion : " + convertedInput);
         StringBuilder final_string = new StringBuilder();
 
         for (List<String> group: convertedInput) {

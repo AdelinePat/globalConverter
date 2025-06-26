@@ -1,6 +1,7 @@
 package converters;
 
 import ascii.AsciiUtils;
+import ascii.Parsing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,8 @@ public class OctalConverter implements IConverter {
 
         @Override
         public String conversion(String input_user) {
-
-            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(input_user);
+//            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(input_user);
+            List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(input_user);
 
             StringBuilder return_string = new StringBuilder();
 
@@ -39,6 +40,7 @@ public class OctalConverter implements IConverter {
         public String reverseConversion(String user_input_int) {
 
             List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(user_input_int);
+//            List<List<String>> parsed_user_string = Parsing.parseGroupStrings(user_input_int);
 
             StringBuilder return_string = new StringBuilder();
 
