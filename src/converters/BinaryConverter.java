@@ -1,6 +1,7 @@
 package converters;
 import ascii.AsciiUtils;
 import ascii.CleanInput;
+import ascii.Parsing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,46 +13,52 @@ public class BinaryConverter implements IConverter {
 
     @Override
     public String conversion(String input_user) {
-        List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
-        List<List<String>> user_input_ascii = new ArrayList<>();
+        List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(input_user);
+        System.out.println("dans binaire conversion : " + parsed_user_string);
+//        List<List<String>> user_input_ascii = new ArrayList<>();
+        StringBuilder user_input_ascii = new StringBuilder();
 
-        for (List<String> word : parsed_user_string) {
+        for (List<Integer> group_number : parsed_user_string) {
             StringBuilder int_string = new StringBuilder();
             List<String> ascii_string_bin = new ArrayList<>();
-            for (String letter : word) {
-                int_string.append(letter);
+            for (Integer ascii_value : group_number) {
+//                ascii_string_bin.add(this.conversion(ascii_value));
+                int_string.append(this.conversion(ascii_value));
+                int_string.append(" ");
             }
+            user_input_ascii.append(int_string);
+            user_input_ascii.append(" ");
 
-            ascii_string_bin.add(this.conversion(CleanInput.stringToInt(int_string.toString())));
-            user_input_ascii.add(ascii_string_bin);
+//            ascii_string_bin.add(this.conversion(CleanInput.stringToInt(int_string.toString())));
+//            user_input_ascii.add(ascii_string_bin);
         }
-        return AsciiUtils.concatenateFromString(user_input_ascii);
+//        return AsciiUtils.concatenateFromString(user_input_ascii);
+        return user_input_ascii.toString();
     }
 
     @Override
     public String reverseConversion(String user_input_int) {
-        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int, 0);
+        List<List<String>> convertedInput = Parsing.parseGroupStrings(user_input_int);
+        System.out.println("list de list de string début reverse conversion : " + convertedInput);
         StringBuilder final_string = new StringBuilder();
-        for (List<Integer> value: convertedInput) {
-            Integer result = 0;
-            List<Integer> reversed_value = value.reversed();
-            for (Integer index = 0; index < reversed_value.size(); index++) {
-                if (reversed_value.get(index) != 0) {
-                    result += 1 << index;
-                }
-            }
-            final_string.append(result);
-            final_string.append(" ");
-//            System.out.println("Valeur : " + result);
-//            System.out.println(reversed_value);
-        }
 
-        // impementation for this method : probably needs to call for concatenateString to return it
+        for (List<String> group: convertedInput) {
+            for (String binaryStr : group) {
+                Integer result = 0;
+                for (Integer index = binaryStr.length() - 1; index >= 0; index--) {
+                    if (binaryStr.charAt(index) != '0') {
+                        result += 1 << binaryStr.length() - 1 - index;
+                    }
+                }
+                final_string.append(String.valueOf(result));
+                final_string.append(String.valueOf(" "));
+            }
+            final_string.append(" ");
+        }
         return final_string.toString();
     }
 
     private String conversion(Integer decimal_value) {
-//        Integer n = this.findBiggestPowerOfTwo(decimal_value);
         List<Integer> bit_positions = new ArrayList<>();
         List<Integer> final_bit_value = new ArrayList<>();
         Integer original_value = decimal_value;
