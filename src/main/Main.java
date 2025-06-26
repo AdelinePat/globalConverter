@@ -20,7 +20,7 @@ public class Main {
         CaesarCipher caesar_cipher = new CaesarCipher();
 
         try {
-            String original_user_input = clean_input.getCleanInput("Salutation le monde");
+            String original_user_input = clean_input.getCleanInput("Salutationa bonjour");
 
             // Test Decimal
             String user_input_int = decimal_converter.conversion(original_user_input);
@@ -43,18 +43,16 @@ public class Main {
             System.out.println("Conversion Hexa reverse          : " + user_input_hex_reverse);
 
             // Test Octal
-            String user_input_octal = octal_converter.conversion(user_input_int);
+            String user_input_octal = octal_converter.conversion(original_user_input);
             String user_octal_to_int = octal_converter.reverseConversion(user_input_octal);
             System.out.println("Entrée input octal (num)         : " + user_input_octal);
             System.out.println("Entrée octal to int (num)        : " + user_octal_to_int);
-            System.out.println("Entrée int to char               : " + decimal_converter.reverseConversion(user_octal_to_int));
 
             // Test Binary
-            String user_input_bin = binary_converter.conversion(user_input_int);
+            String user_input_bin = binary_converter.conversion(original_user_input);
             String user_bin_to_int = binary_converter.reverseConversion(user_input_bin);
             System.out.println("Entrée int > bin (num)           : " + user_input_bin);
             System.out.println("Entrée bin > int (num)           : " + user_bin_to_int);
-            System.out.println("Entrée int to char               : " + decimal_converter.reverseConversion(user_bin_to_int));
         }
         catch (UserError e) {
             System.out.println("\u001B[36mErreur utilisateur : \u001B[0m " + e.getMessage());
