@@ -24,14 +24,14 @@ public class DecimalConverter implements IConverter {
                 result.add(ascii_values);
             }
         } catch (AlgorithmError e) {
-            System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
+            System.out.println("\u001B[31mErreur d'Algorithme Decimal: \u001B[0m" + e.getMessage());
         }
         return AsciiUtils.concatenateFromInt(result);
     }
 
     public String reverseConversion(String user_input_int) {
-//        List<List<Integer>> convertedInput = AsciiUtils.parseStringIntoIntList(user_input_int);
         List<List<Integer>> convertedInput = Parsing.parseGroupNumbers(user_input_int);
+        System.out.println("List<List<Integer> = " + convertedInput);
         List<List<String>>  final_string = new ArrayList<>();
         try {
             for (List<Integer> word : convertedInput) {
@@ -43,7 +43,7 @@ public class DecimalConverter implements IConverter {
                 final_string.add(word_string);
             }
         } catch (AlgorithmError e) {
-            System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
+            System.out.println("\u001B[31mErreur d'Algorithme reverseDecimal: \u001B[0m" + e.getMessage());
         }
         return AsciiUtils.concatenateFromString(final_string);
     }

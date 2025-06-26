@@ -1,7 +1,10 @@
 package converters;
 
 import ascii.AsciiUtils;
+import ascii.CleanInput;
 import ascii.Parsing;
+import com.sun.tools.attach.AgentLoadException;
+import custom_exceptions.AlgorithmError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,50 +17,46 @@ public class OctalConverter implements IConverter {
 
         @Override
         public String conversion(String input_user) {
-//            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(input_user);
-            List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(input_user);
+            List<List<String>> parsed_user_string = Parsing.splitSentenceIntoLetterGroups(input_user);
 
             StringBuilder return_string = new StringBuilder();
 
             for (int list_index = 0; list_index < parsed_user_string.size(); list_index++) {
 
-                for (int letter : parsed_user_string.get(list_index)) {
-                    return_string.append(conversion(letter));
-
-                    if (parsed_user_string.get(list_index).indexOf(letter) != parsed_user_string.get(list_index).size() - 1) {
-                        return_string.append(" ");
-                    }
+                for (String letter : parsed_user_string.get(list_index)) {
+                    Integer ascii_code = AsciiUtils.ascii_map.get(letter);
+                    return_string.append(this.conversion(ascii_code));
+                    return_string.append(" ");
                 }
                 if (list_index != parsed_user_string.size() - 1) {
-                    return_string.append("  ");
+                    return_string.append(" ");
                 }
             }
-
-            return return_string.toString();
+            System.out.println("string octal conversion : " + return_string);
+            return return_string.toString().trim();
         }
 
         @Override
         public String reverseConversion(String user_input_int) {
-
-            List<List<Integer>> parsed_user_string = AsciiUtils.parseStringIntoIntList(user_input_int);
-//            List<List<String>> parsed_user_string = Parsing.parseGroupStrings(user_input_int);
+            List<List<Integer>> parsed_user_string = Parsing.parseGroupNumbers(user_input_int);
 
             StringBuilder return_string = new StringBuilder();
+            try {
+                for (Integer list_index = 0; list_index < parsed_user_string.size(); list_index++) {
 
-            for (int list_index = 0; list_index < parsed_user_string.size(); list_index++) {
-
-                for (int letter : parsed_user_string.get(list_index)) {
-
-                    return_string.append(reverseConversion(letter));
-
-                    if (parsed_user_string.get(list_index).indexOf(letter) != parsed_user_string.get(list_index).size() - 1) {
+                    for (Integer letter : parsed_user_string.get(list_index)) {
+                        Integer decimal_value = CleanInput.stringToInt(this.reverseConversion(letter));
+                        String ascii_letter = AsciiUtils.getCharacterByAsciiValue(decimal_value);
+                        return_string.append(ascii_letter);
+                    }
+                    if (list_index != parsed_user_string.size() - 1) {
                         return_string.append(" ");
                     }
                 }
-                if (list_index != parsed_user_string.size() - 1) {
-                    return_string.append("  ");
-                }
+            } catch (AlgorithmError e) {
+                System.out.println("\u001B[31mErreur d'Algorithme reverseOctal: \u001B[0m" + e.getMessage());
             }
+
 
             return return_string.toString();
         }

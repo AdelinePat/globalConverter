@@ -76,7 +76,7 @@ public class HexaConverter implements IConverter {
                 result.add("");
             }
         } catch (AlgorithmError e) {
-            System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
+            System.out.println("\u001B[31mErreur d'Algorithme hexa : \u001B[0m" + e.getMessage());
         }
 
 
@@ -119,7 +119,7 @@ public class HexaConverter implements IConverter {
             }
 
         } catch (AlgorithmError e) {
-            System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
+            System.out.println("\u001B[31mErreur d'Algorithme (reversehex): \u001B[0m" + e.getMessage());
         }
 
         // Rejoint les mots avec un seul espace
