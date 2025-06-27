@@ -5,7 +5,7 @@ import ascii.AsciiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaesarCipher {
+public class  CaesarCipher {
     private Integer key;
 
     public String caesarEncrypt(String user_input_int) {
