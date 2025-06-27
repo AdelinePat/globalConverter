@@ -22,17 +22,14 @@ public class UserInterfaceView {
     public void printConversions(String initial_input, String previous_conversion, String final_conversion) {
         System.out.println("\033[3J\033[1;0H\033[0JTexte brut :");
         System.out.println(initial_input);
-        System.out.println("\nConversion précédente :");
-        System.out.println(previous_conversion);
-        System.out.println("\nRésultat de la convertion :");
-        System.out.println(final_conversion);
-    }
-
-    public void printConversions(String initial_input, String final_conversion) {
-        System.out.println("\033[3J\033[1;0H\033[0JTexte brut :");
-        System.out.println(initial_input);
-        System.out.println("Résultat de la convertion :");
-        System.out.println(final_conversion);
+        if (previous_conversion != "") {
+            System.out.println("\nConversion précédente :");
+            System.out.println(previous_conversion);
+        }
+        if (final_conversion != "") {
+            System.out.println("\nRésultat de la convertion :");
+            System.out.println(final_conversion);
+        }
     }
 
     public void printSelectionMenu() {
@@ -41,7 +38,8 @@ public class UserInterfaceView {
                 "\n2. Convertir en binaire" +
                 "\n3. Convertir en octal" +
                 "\n4. Convertir en hexadécimal" +
-                "\n5. Crypter en code César");
+                "\n5. Crypter en code César" +
+                "\n6. Quitter le programme");
     }
 
     public void printCaesarEncrypting() {
