@@ -53,22 +53,28 @@ public class InteractiveMain {
                 }
             }
 
-            if (conversion_result != "") {
-                previous_conversion = conversion_result;
+            switch (user_choice) {
+                case 1 -> conversion_result = ascii_string;
+                case 2 | 3 | 4 -> conversion_result = current_user.convertUserChoice(user_choice, ascii_string);
+                case 5 -> conversion_result = launchCaesarEncrypt();
+                case 6 -> {
+                    return 0;
+                }
+                default -> {
+                    continue;
+                }
             }
-            if (user_choice == 1) {
-                conversion_result = ascii_string;
-            }
-            else if (user_choice != 5) {
-                conversion_result = current_user.convertUserChoice(user_choice, ascii_string);
-            }
-            else if (user_choice == 5) {
+        }
+    }
+
+    private static String launchCaesarEncrypt() {
+        while (true) {
+            try {
                 user_interface_view.printCaesarEncrypting();
                 int caesar_offset = user_interface_view.handleUserIntChoice();
-                conversion_result = current_user.convertUserChoice(5, ascii_string, caesar_offset);
-            }
-            else {
-                return 0;
+                return current_user.convertUserChoice(5, ascii_string, caesar_offset);
+            } catch (InputMismatchException | AlgorithmError e) {
+                continue;
             }
         }
     }
