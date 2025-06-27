@@ -8,10 +8,6 @@ import custom_exceptions.UserError;
 
 public class UserInterfaceControl {
 
-    public String ascii_string;
-
-    public String initial_input_type = "";
-
     private IConverter binary_converter;
     private IConverter octal_converter;
     private IConverter hexa_converter;
@@ -43,9 +39,9 @@ public class UserInterfaceControl {
         };
     }
 
-    public String convertUserChoice(int choice_index, int caesar_offset) throws AlgorithmError {
+    public String convertUserChoice(int choice_index, String ascii_string, int caesar_offset) throws AlgorithmError {
         return switch (choice_index) {
-            case 5 -> ascii_string = caesar_cipher.caesarEncrypt(ascii_string, caesar_offset);
+            case 5 -> caesar_cipher.caesarEncrypt(ascii_string, caesar_offset);
             default -> "";
         };
     }
