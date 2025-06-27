@@ -54,13 +54,16 @@ public class InteractiveMain {
             }
 
             switch (user_choice) {
-                case 1 -> conversion_result = ascii_string;
-                case 2 | 3 | 4 -> conversion_result = current_user.convertUserChoice(user_choice, ascii_string);
-                case 5 -> conversion_result = launchCaesarEncrypt();
-                case 6 -> {
+                case 1 : conversion_result = ascii_string;
+                    break;
+                case 2 : case 3 : case 4 : conversion_result = current_user.convertUserChoice(user_choice, initial_input);
+                    break;
+                case 5 : conversion_result = launchCaesarEncrypt();
+                 break;
+                case 6 : {
                     return 0;
                 }
-                default -> {
+                default : {
                     continue;
                 }
             }
