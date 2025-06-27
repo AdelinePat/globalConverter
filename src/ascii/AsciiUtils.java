@@ -29,22 +29,6 @@ public class AsciiUtils {
         ascii_map = gson.fromJson(reader, new TypeToken<Map<String, Integer>>() {}.getType());
     }
 
-    public static List<String> parseStringIntoList(String user_input) {
-//        List<String> result = new ArrayList<>();
-        String[] words = user_input.split(" ");
-        return Arrays.asList(words);
-    }
-
-    public static List<List<String>> parseStringIntoListList(String user_input) {
-        List<List<String>> result = new ArrayList<>();
-        List<String> word = parseStringIntoList(user_input);
-        List<String> second_list = new ArrayList<>();
-        for (String letter : word) {
-            result.add(List.of(letter));
-        }
-        return result;
-    }
-
     public static List<List<String>> parseStringIntoStringList(String user_input) {
         List<List<String>> result = new ArrayList<>();
         String[] words = user_input.split(" ");
@@ -60,19 +44,7 @@ public class AsciiUtils {
         result.removeIf(List::isEmpty);
         return result;
     }
-    public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal, Integer choice) {
-        List<List<Integer>> result = new ArrayList<>();
-        String[] words = user_input_decimal.split(" ");
 
-        for (String word : words) {
-            List<Integer> group_numbers = new ArrayList<>();
-            for (int index = 0; index < word.length(); index++) {
-                group_numbers.add(CleanInput.stringToInt(String.valueOf(word.charAt(index))));
-            }
-            result.add(group_numbers);
-        }
-        return result;
-    }
     public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal) {
         List<List<Integer>> result = new ArrayList<>();
         String[] words = user_input_decimal.split("  ");
