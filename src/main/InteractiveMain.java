@@ -4,6 +4,8 @@ import custom_exceptions.AlgorithmError;
 import custom_exceptions.UserError;
 import user_interface.*;
 
+import java.util.InputMismatchException;
+
 public class InteractiveMain {
     static UserInterfaceControl current_user;
     static UserInterfaceView user_interface_view;
@@ -16,8 +18,6 @@ public class InteractiveMain {
     public static void main(String[] args) throws AlgorithmError {
         startProgram();
         System.out.println(runProgram());
-
-
     }
 
     private static void startProgram() {
@@ -40,9 +40,19 @@ public class InteractiveMain {
 
     private static int runProgram() throws AlgorithmError {
         while (true) {
-            user_interface_view.printConversions(initial_input, previous_conversion, conversion_result);
-            user_interface_view.printSelectionMenu();
-            int user_choice = user_interface_view.handleUserIntChoice();
+            int user_choice = 6;
+
+            while (true) {
+                try {
+                    user_interface_view.printConversions(initial_input, previous_conversion, conversion_result);
+                    user_interface_view.printSelectionMenu();
+                    user_choice = user_interface_view.handleUserIntChoice();
+                    break;
+                } catch (InputMismatchException e) {
+                    continue;
+                }
+            }
+
             if (conversion_result != "") {
                 previous_conversion = conversion_result;
             }
@@ -55,12 +65,11 @@ public class InteractiveMain {
             else if (user_choice == 5) {
                 user_interface_view.printCaesarEncrypting();
                 int caesar_offset = user_interface_view.handleUserIntChoice();
-                conversion_result = current_user.convertUserChoice(5, caesar_offset);
+                conversion_result = current_user.convertUserChoice(5, ascii_string, caesar_offset);
             }
             else {
-                break;
+                return 0;
             }
         }
-        return 0;
     }
 }
