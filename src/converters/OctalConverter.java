@@ -12,14 +12,14 @@ public class OctalConverter implements IConverter {
     public OctalConverter() {}
 
         @Override
-        public String conversion(String input_user) {
+        public String conversion(String input_user) throws AlgorithmError {
             List<List<String>> parsed_user_string = Parsing.splitSentenceIntoLetterGroups(input_user);
             StringBuilder return_string = new StringBuilder();
 
             for (int list_index = 0; list_index < parsed_user_string.size(); list_index++) {
 
                 for (String letter : parsed_user_string.get(list_index)) {
-                    Integer ascii_code = AsciiUtils.ascii_map.get(letter);
+                    Integer ascii_code = AsciiUtils.getAsciiCode(letter);
                     return_string.append(this.conversion(ascii_code));
                     return_string.append(" ");
                 }
@@ -40,11 +40,11 @@ public class OctalConverter implements IConverter {
 
                     for (Integer letter : parsed_user_string.get(list_index)) {
                         Integer decimal_value = CleanInput.stringToInt(this.reverseConversion(letter));
-//                        String ascii_letter = AsciiUtils.getCharacterByAsciiValue(decimal_value);
-                        String ascii_letter = AsciiUtils.reverse_ascii_map.get(decimal_value);
-                        if (letter == null) {
-                            throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                        }
+                        String ascii_letter = AsciiUtils.getCharacterFromAscii(decimal_value);
+//                        String ascii_letter = AsciiUtils.reverse_ascii_map.get(decimal_value);
+//                        if (letter == null) {
+//                            throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+//                        }
                         return_string.append(ascii_letter);
                     }
                     if (list_index != parsed_user_string.size() - 1) {

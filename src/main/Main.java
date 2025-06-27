@@ -15,13 +15,13 @@ public class Main {
         CaesarCipher caesar_cipher = new CaesarCipher();
 
         try {
-            String original_user_input = clean_input.getCleanInput("Faut bien faire des test comme on peut");
+            String original_user_input = clean_input.getCleanInput("Ca marche une fois sur deux");
 
             // Test Decimal
-//            String user_input_int = decimal_converter.conversion(original_user_input);
-//            String user_input_reverse_decimal = decimal_converter.reverseConversion(user_input_int);
-//            System.out.println("Original > decimal               : " + user_input_int);
-//            System.out.println("Decimal > string (original)      : " + user_input_reverse_decimal + "\n");
+            String user_input_int = decimal_converter.conversion(original_user_input);
+            String user_input_reverse_decimal = decimal_converter.reverseConversion(user_input_int);
+            System.out.println("Original > decimal               : " + user_input_int);
+            System.out.println("Decimal > string (original)      : " + user_input_reverse_decimal + "\n");
 
             // Test Caesar cipher
             String user_caesar = caesar_cipher.caesarEncrypt(original_user_input, 3);

@@ -40,10 +40,7 @@ public class BinaryConverter implements IConverter {
             StringBuilder int_string = new StringBuilder();
 
             for (String c : word) {
-                Integer ascii_code = AsciiUtils.ascii_map.get(c);
-                if (ascii_code == null) {
-                    throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                }
+                Integer ascii_code = AsciiUtils.getAsciiCode(c);
                 int_string.append(this.fromDecimalToBinary(ascii_code));
                 int_string.append(" ");
             }
@@ -61,11 +58,11 @@ public class BinaryConverter implements IConverter {
             for (List<String> group: convertedInput) {
                 for (String binary_string : group) {
                     Integer result = this.fromBinaryToDecimal(binary_string);
-//                    final_string.append(AsciiUtils.getCharacterByAsciiValue(result));
-                    String letter = AsciiUtils.reverse_ascii_map.get(result);
-                    if (letter == null) {
-                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                    }
+//                    String letter = AsciiUtils.reverse_ascii_map.get(result);
+                    String letter = AsciiUtils.getCharacterFromAscii(result);
+//                    if (letter == null) {
+//                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+//                    }
                     final_string.append(letter);
                 }
                 final_string.append(" ");
