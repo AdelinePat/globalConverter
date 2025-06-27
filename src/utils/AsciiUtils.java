@@ -44,21 +44,6 @@ public class AsciiUtils {
         return result;
     }
 
-    public static List<List<Integer>> parseStringIntoIntList(String user_input_decimal) {
-        List<List<Integer>> result = new ArrayList<>();
-        String[] words = user_input_decimal.split("  ");
-
-        for (String word : words) {
-            List<Integer> group_numbers = new ArrayList<>();
-            String[] letter_list = word.split(" ");
-            for (String c : letter_list) {
-                group_numbers.add(CleanInput.stringToInt(c));
-            }
-            result.add(group_numbers);
-        }
-        return result;
-    }
-
     public static String getCharacterByAsciiValue(Integer ascii_value) throws AlgorithmError {
         for (Map.Entry<String, Integer> entry : ascii_map.entrySet()) {
             if (entry.getValue().equals(ascii_value)) {
@@ -67,35 +52,5 @@ public class AsciiUtils {
         }
         throw new AlgorithmError("Attention, la valeur ASCII n'a pas de clé " +
                 "correspondante dans le ascii_table.json.");
-    }
-
-    public static String concatenateFromInt(List<List<Integer>> convertedInput){
-        StringBuilder final_string = new StringBuilder();
-        for (List<Integer> word : convertedInput) {
-            StringBuilder ascii_string = new StringBuilder();
-            for (int index=0; index < word.size(); index++) {
-                String character = word.get(index).toString();
-                ascii_string.append(character);
-                if (index != word.size() -1 ) {
-                    ascii_string.append(" ");
-                }
-            }
-            final_string.append(ascii_string);
-            final_string.append("  ");
-        }
-        return final_string.toString().trim();
-    }
-
-    public static String concatenateFromString(List<List<String>> convertedInput) {
-        StringBuilder final_string = new StringBuilder();
-        for (List<String> word : convertedInput) {
-            StringBuilder ascii_string = new StringBuilder();
-            for (String character : word) {
-                ascii_string.append(character);
-            }
-            final_string.append(ascii_string);
-            final_string.append(" ");
-        }
-        return final_string.toString().trim();
     }
 }

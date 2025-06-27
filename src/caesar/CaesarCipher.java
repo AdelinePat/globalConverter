@@ -1,6 +1,8 @@
 package caesar;
 
+import custom_exceptions.AlgorithmError;
 import utils.AsciiUtils;
+import utils.Parsing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,30 +10,37 @@ import java.util.List;
 public class  CaesarCipher {
     private Integer key;
 
-    public String caesarEncrypt(String user_input_int) {
-        return caesarEncrypt(user_input_int, 0);
+    public String caesarEncrypt(String user_input_letter) throws AlgorithmError {
+        return caesarEncrypt(user_input_letter, 0);
     }
 
-    public String caesarEncrypt(String user_input_int, int offset) {
-        List<List<Integer>> initialDecimalValues = AsciiUtils.parseStringIntoIntList(user_input_int);
+    public String caesarEncrypt(String user_input_letter, int offset) throws AlgorithmError {
+        List<List<String>> initialDecimalValues = Parsing.splitSentenceIntoLetterGroups(user_input_letter);
 
         if (offset != 0) {
             key = offset;
         } else {
             key = -key;
         }
-        List<List<Integer>> result = new ArrayList<>();
+//        List<List<Integer>> result = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
 
-        for (List<Integer> integers_group : initialDecimalValues) {
+        for (List<String> word : initialDecimalValues) {
+            StringBuilder word_result = new StringBuilder();
+//            List<Integer> word_result = new ArrayList<>();
 
-            List<Integer> word_result = new ArrayList<>();
-
-            for (int new_value : integers_group) {
-                word_result.add(getNewValue(new_value));
+            for (String character : word) {
+                Integer ascii_code = AsciiUtils.ascii_map.get(character);
+                if (ascii_code == null) {
+                    throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+                }
+                word_result.append(AsciiUtils.getCharacterByAsciiValue(this.getNewValue(ascii_code)));
+//                word_result.add(getNewValue(new_value));
             }
-            result.add(word_result);
+            result.append(word_result);
+            result.append(" ");
         }
-        return AsciiUtils.concatenateFromInt(result);
+        return result.toString();
     }
 
     private int getNewValue(int new_value) {
