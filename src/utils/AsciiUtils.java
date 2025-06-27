@@ -6,12 +6,15 @@ import custom_exceptions.AlgorithmError;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AsciiUtils {
 
     public static Map<String, Integer> ascii_map;
+    public static Map<Integer, String> reverse_ascii_map;
+
     static {
         loadAsciiTable();
     }
@@ -26,6 +29,11 @@ public class AsciiUtils {
         InputStreamReader reader = new InputStreamReader(inputStream);
         Gson gson = new Gson();
         ascii_map = gson.fromJson(reader, new TypeToken<Map<String, Integer>>() {}.getType());
+
+        reverse_ascii_map = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : ascii_map.entrySet()) {
+            reverse_ascii_map.put(entry.getValue(), entry.getKey());
+        }
     }
 
     public static List<List<String>> parseStringIntoStringList(String user_input) {
@@ -42,15 +50,5 @@ public class AsciiUtils {
         }
         result.removeIf(List::isEmpty);
         return result;
-    }
-
-    public static String getCharacterByAsciiValue(Integer ascii_value) throws AlgorithmError {
-        for (Map.Entry<String, Integer> entry : ascii_map.entrySet()) {
-            if (entry.getValue().equals(ascii_value)) {
-                return entry.getKey();
-            }
-        }
-        throw new AlgorithmError("Attention, la valeur ASCII n'a pas de clé " +
-                "correspondante dans le ascii_table.json.");
     }
 }

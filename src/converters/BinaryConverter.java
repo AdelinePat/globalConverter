@@ -61,7 +61,12 @@ public class BinaryConverter implements IConverter {
             for (List<String> group: convertedInput) {
                 for (String binary_string : group) {
                     Integer result = this.fromBinaryToDecimal(binary_string);
-                    final_string.append(AsciiUtils.getCharacterByAsciiValue(result));
+//                    final_string.append(AsciiUtils.getCharacterByAsciiValue(result));
+                    String letter = AsciiUtils.reverse_ascii_map.get(result);
+                    if (letter == null) {
+                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+                    }
+                    final_string.append(letter);
                 }
                 final_string.append(" ");
             }
