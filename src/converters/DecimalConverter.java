@@ -13,16 +13,11 @@ public class DecimalConverter implements IConverter {
         StringBuilder result = new StringBuilder();
         try {
             for (List<String> word : parsed_user_string) {
-//                List<Integer> ascii_values = new ArrayList<>();
                 StringBuilder ascii_values = new StringBuilder();
                 for (String c : word) {
-                    Integer ascii_code = AsciiUtils.ascii_map.get(c);
+                    Integer ascii_code = AsciiUtils.getAsciiCode(c);
                     ascii_values.append(ascii_code);
                     ascii_values.append(" ");
-                    if (ascii_code == null) {
-                       throw new AlgorithmError("Le code ASCII est NULL ou" +
-                                "non trouvé dans ascii_table.json");
-                    }
                 }
                 result.append(ascii_values);
                 result.append(" ");
@@ -40,11 +35,11 @@ public class DecimalConverter implements IConverter {
             for (List<Integer> word : convertedInput) {
                 StringBuilder word_string = new StringBuilder();
                 for (Integer character : word) {
-//                    String letter = AsciiUtils.getCharacterByAsciiValue(character);
-                    String letter = AsciiUtils.reverse_ascii_map.get(character);
-                    if (letter == null) {
-                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                    }
+                    String letter = AsciiUtils.getCharacterFromAscii(character);
+//                    String letter = AsciiUtils.reverse_ascii_map.get(character);
+//                    if (letter == null) {
+//                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+//                    }
                     word_string.append(letter);
                 }
                 final_string.append(word_string);

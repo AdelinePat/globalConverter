@@ -51,4 +51,22 @@ public class AsciiUtils {
         result.removeIf(List::isEmpty);
         return result;
     }
+
+    static public Integer getAsciiCode(String c) throws AlgorithmError {
+        Integer ascii_code = AsciiUtils.ascii_map.get(c);
+        if (ascii_code == null) {
+            throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+        }
+        return ascii_code;
+    }
+
+    static public String getCharacterFromAscii(Integer ascii_code) throws AlgorithmError{
+        String letter = AsciiUtils.reverse_ascii_map.get(ascii_code);
+        if (letter == null) {
+            throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+        }
+        return letter;
+
+    }
+
 }

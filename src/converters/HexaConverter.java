@@ -2,7 +2,8 @@ package converters;
 
 import utils.AsciiUtils;
 import custom_exceptions.AlgorithmError;
-
+import utils.CleanInput;
+import utils.Parsing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,78 +55,62 @@ public class HexaConverter implements IConverter {
         return hex.toString();
     }
 
+    private Integer fromHexToDecimal (String hex_string) throws AlgorithmError {
+        int decimalValue = 0;
+        for (int index = 0; index < hex_string.length(); index++) {
+            if (hex_string.charAt(index) != '0') {
+                String hexChar = String.valueOf(hex_string.charAt(index)).toUpperCase();
+                Integer val = this.hexToInt.get(hexChar);
+                if (val == null) {
+                    throw new AlgorithmError("Caractère hexadécimal invalide : " + hex_string.charAt(index));
+                }
+                decimalValue =  decimalValue * 16 + val;
+            }
+        }
+        return decimalValue;
+    }
+
     @Override
     public String conversion(String input_user) throws AlgorithmError {
-        List<List<String>> parsed_user_string = AsciiUtils.parseStringIntoStringList(input_user);
+        List<List<String>> parsed_user_string = Parsing.splitSentenceIntoLetterGroups(input_user);
         List<String> result = new ArrayList<>();
 
         try {
             for (List<String> word : parsed_user_string) {
                 for (String c : word) {
-                    Integer ascii_code = AsciiUtils.ascii_map.get(c);
-                    if (ascii_code == null) {
-                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                    }
+                    Integer ascii_code = AsciiUtils.getAsciiCode(c);
                     String hex_code = decimalToHexManual(ascii_code);
                     result.add(hex_code);
                 }
-
-                result.add("");
+                result.add(" ");
             }
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-
-
         return String.join(" ", result).trim();
     }
 
-
     @Override
     public String reverseConversion(String user_input_hex) {
-        String[] hexCodes = user_input_hex.trim().split(" ", -1);
-        List<String> currentWord = new ArrayList<>();
-        List<String> fullMessage = new ArrayList<>();
+        List<List<String>> hexCodes = Parsing.parseGroupStrings(user_input_hex);
+        StringBuilder final_string = new StringBuilder();
 
         try {
-            for (String hexCode : hexCodes) {
-                if (hexCode.isEmpty()) {
-                    // Fin d'un mot, on l'ajoute à la liste et on réinitialise
-                    fullMessage.add(String.join("", currentWord));
-                    currentWord.clear();
-                    continue;
+            for (List<String> hexCode : hexCodes) {
+                for (String hex_string: hexCode) {
+                    Integer result = this.fromHexToDecimal(hex_string);
+                    String letter = AsciiUtils.getCharacterFromAscii(result);
+//                    String letter = AsciiUtils.reverse_ascii_map.get(result);
+//                    if (letter == null) {
+//                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+//                    }
+                    final_string.append((letter));
                 }
-
-                int decimalValue = 0;
-                for (int i = 0; i < hexCode.length(); i++) {
-                    String hexChar = hexCode.substring(i, i + 1).toUpperCase();
-                    Integer val = hexToInt.get(hexChar);
-                    if (val == null) {
-                        throw new AlgorithmError("Caractère hexadécimal invalide : " + hexChar);
-                    }
-                    decimalValue = decimalValue * 16 + val;
-                }
-
-//                String letter = AsciiUtils.getCharacterByAsciiValue(decimalValue);
-                String letter = AsciiUtils.reverse_ascii_map.get(decimalValue);
-                if (letter == null) {
-                    throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-                }
-                currentWord.add(letter);
+                final_string.append(" ");
             }
-
-            // Ajouter le dernier mot s’il n’y a pas d’espace final
-            if (!currentWord.isEmpty()) {
-                fullMessage.add(String.join("", currentWord));
-            }
-
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-
-        // Rejoint les mots avec un seul espace
-        return String.join(" ", fullMessage);
+        return final_string.toString();
     }
-
-
 }
