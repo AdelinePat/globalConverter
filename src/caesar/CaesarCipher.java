@@ -34,7 +34,7 @@ public class  CaesarCipher {
                 if (ascii_code == null) {
                     throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
                 }
-                word_result.append(AsciiUtils.getCharacterByAsciiValue(this.getNewValue(ascii_code)));
+                word_result.append(AsciiUtils.reverse_ascii_map.get((this.getNewValue(ascii_code))));
 //                word_result.add(getNewValue(new_value));
             }
             result.append(word_result);

@@ -40,7 +40,11 @@ public class OctalConverter implements IConverter {
 
                     for (Integer letter : parsed_user_string.get(list_index)) {
                         Integer decimal_value = CleanInput.stringToInt(this.reverseConversion(letter));
-                        String ascii_letter = AsciiUtils.getCharacterByAsciiValue(decimal_value);
+//                        String ascii_letter = AsciiUtils.getCharacterByAsciiValue(decimal_value);
+                        String ascii_letter = AsciiUtils.reverse_ascii_map.get(decimal_value);
+                        if (letter == null) {
+                            throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+                        }
                         return_string.append(ascii_letter);
                     }
                     if (list_index != parsed_user_string.size() - 1) {

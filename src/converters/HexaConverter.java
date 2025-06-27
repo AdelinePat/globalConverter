@@ -106,7 +106,11 @@ public class HexaConverter implements IConverter {
                     decimalValue = decimalValue * 16 + val;
                 }
 
-                String letter = AsciiUtils.getCharacterByAsciiValue(decimalValue);
+//                String letter = AsciiUtils.getCharacterByAsciiValue(decimalValue);
+                String letter = AsciiUtils.reverse_ascii_map.get(decimalValue);
+                if (letter == null) {
+                    throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
+                }
                 currentWord.add(letter);
             }
 
