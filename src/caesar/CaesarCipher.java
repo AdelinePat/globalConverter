@@ -1,6 +1,6 @@
 package caesar;
 
-import ascii.AsciiUtils;
+import utils.AsciiUtils;
 
 import java.util.ArrayList;
 import java.util.List;

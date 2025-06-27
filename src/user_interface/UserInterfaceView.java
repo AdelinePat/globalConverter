@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class UserInterfaceView {
 
     public void printInputMenu() {
-        System.out.println("\033[3J\033[1;0H\033[0J-- Bienvenue sur le GlobalConverter --");
+        System.out.println("\u001B[3J\u001B[1;0H\u001B[0J-- Bienvenue sur le GlobalConverter --");
         System.out.println("Entrez une chaîne de caractère à traduire (a-Z, 0-9 uniquement)\n");
     }
 
@@ -20,7 +20,7 @@ public class UserInterfaceView {
     }
 
     public void printConversions(String initial_input, String previous_conversion, String final_conversion) {
-        System.out.println("\033[3J\033[1;0H\033[0JTexte brut :");
+        System.out.println("\u001B[3J\u001B[1;0H\u001B[0JTexte brut :");
         System.out.println(initial_input);
         if (previous_conversion != "") {
             System.out.println("\nConversion précédente :");
@@ -34,7 +34,7 @@ public class UserInterfaceView {
 
     public void printSelectionMenu() {
         System.out.println("\n\nChoisissez une option :" +
-                "\n1. Convertir en code ASCII" +
+                "\n1. Convertir en code ASCII décimal" +
                 "\n2. Convertir en binaire" +
                 "\n3. Convertir en octal" +
                 "\n4. Convertir en hexadécimal" +

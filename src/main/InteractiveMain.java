@@ -1,5 +1,5 @@
 package main;
-import ascii.CleanInput;
+import utils.CleanInput;
 import custom_exceptions.AlgorithmError;
 import custom_exceptions.UserError;
 import user_interface.*;
@@ -32,8 +32,10 @@ public class InteractiveMain {
                 initial_input = clean_input.getCleanInput(initial_input);
                 ascii_string = current_user.convertUserChoice(1, initial_input);
                 break;
-            } catch (UserError | AlgorithmError e) {
-                continue;
+            } catch (UserError e) {
+                System.out.println("\u001B[36mErreur utilisateur : \u001B[0m " + e.getMessage());
+            } catch (AlgorithmError e) {
+                System.out.println("\u001B[31mErreur d'Algorihtme : \u001B[0m" + e.getMessage());
             }
         }
     }
@@ -49,7 +51,7 @@ public class InteractiveMain {
                     user_choice = user_interface_view.handleUserIntChoice();
                     break;
                 } catch (InputMismatchException e) {
-                    continue;
+                    System.out.println("\u001B[36mErreur utilisateur : \u001B[0m Veuillez insérez uniquement un chiffre");
                 }
             }
 
@@ -58,7 +60,8 @@ public class InteractiveMain {
                     break;
                 case 2 : case 3 : case 4 : conversion_result = current_user.convertUserChoice(user_choice, initial_input);
                     break;
-                case 5 : conversion_result = launchCaesarEncrypt();
+                case 5 : ascii_string = conversion_result = launchCaesarEncrypt();
+                initial_input = current_user.reverseConvert(1, conversion_result);
                  break;
                 case 6 : {
                     return 0;
@@ -76,8 +79,11 @@ public class InteractiveMain {
                 user_interface_view.printCaesarEncrypting();
                 int caesar_offset = user_interface_view.handleUserIntChoice();
                 return current_user.convertUserChoice(5, ascii_string, caesar_offset);
-            } catch (InputMismatchException | AlgorithmError e) {
-                continue;
+
+            } catch (InputMismatchException e) {
+                System.out.println("\u001B[36mErreur utilisateur : \u001B[0m Veuillez insérez uniquement un chiffre");
+            } catch (AlgorithmError e) {
+                System.out.println("\u001B[31mErreur d'Algorihtme : \u001B[0m" + e.getMessage());
             }
         }
     }

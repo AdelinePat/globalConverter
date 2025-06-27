@@ -1,6 +1,6 @@
 package converters;
 
-import ascii.AsciiUtils;
+import utils.AsciiUtils;
 import custom_exceptions.AlgorithmError;
 
 import java.util.ArrayList;

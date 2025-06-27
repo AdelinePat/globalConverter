@@ -1,14 +1,9 @@
 package main;
-import ascii.AsciiUtils;
-import ascii.Parsing;
-import ascii.CleanInput;
+import utils.CleanInput;
 import caesar.CaesarCipher;
 import converters.*;
 import custom_exceptions.AlgorithmError;
 import custom_exceptions.UserError;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
