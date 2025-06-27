@@ -1,10 +1,9 @@
 package user_interface;
 
-import ascii.CleanInput;
+import utils.CleanInput;
 import caesar.CaesarCipher;
 import converters.*;
 import custom_exceptions.AlgorithmError;
-import custom_exceptions.UserError;
 
 public class UserInterfaceControl {
 
@@ -27,22 +26,27 @@ public class UserInterfaceControl {
     public String convertUserChoice(int choice_index, String conversion_base) throws AlgorithmError {
         return switch (choice_index) {
             case 1 -> decimal_converter.conversion(conversion_base);
-//            case 6 -> decimal_converter.reverseConversion(conversion_base);
             case 2 -> binary_converter.conversion(conversion_base);
-//            case 7 -> binary_converter.reverseConversion(conversion_base);
             case 3 -> octal_converter.conversion(conversion_base);
-//            case 8 -> octal_converter.reverseConversion(conversion_base);
             case 4 -> hexa_converter.conversion(conversion_base);
-//            case 9 -> hexa_converter.reverseConversion(conversion_base);
-//            case 10 -> caesar_cipher.caesarEncrypt(conversion_base);
-            default -> "";
+            default -> conversion_base;
+        };
+    }
+
+    public String reverseConvert(int choice_index, String conversion_base) throws AlgorithmError {
+        return switch (choice_index) {
+            case 1 -> decimal_converter.reverseConversion(conversion_base);
+            case 2 -> binary_converter.reverseConversion(conversion_base);
+            case 3 -> octal_converter.reverseConversion(conversion_base);
+            case 4 -> hexa_converter.reverseConversion(conversion_base);
+            default -> conversion_base;
         };
     }
 
     public String convertUserChoice(int choice_index, String ascii_string, int caesar_offset) throws AlgorithmError {
         return switch (choice_index) {
             case 5 -> caesar_cipher.caesarEncrypt(ascii_string, caesar_offset);
-            default -> "";
+            default -> ascii_string;
         };
     }
 }

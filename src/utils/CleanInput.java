@@ -1,7 +1,5 @@
-package ascii;
+package utils;
 import custom_exceptions.UserError;
-
-import java.util.List;
 
 public class CleanInput {
     public String clean_input;

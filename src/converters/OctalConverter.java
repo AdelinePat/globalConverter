@@ -1,9 +1,8 @@
 package converters;
 
-import ascii.AsciiUtils;
-import ascii.CleanInput;
-import ascii.Parsing;
-import com.sun.tools.attach.AgentLoadException;
+import utils.AsciiUtils;
+import utils.CleanInput;
+import utils.Parsing;
 import custom_exceptions.AlgorithmError;
 
 import java.util.ArrayList;
