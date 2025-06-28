@@ -19,7 +19,7 @@ public class ConverterFactory {
             case "-b" :
                 return new BinaryConverter();
             default:
-                throw new UserError("La commande n'a pas été reconnue \u001B[33mveuillez renseigner exactement" +
+                throw new UserError("La commande n'a pas été reconnue \u001B[33mveuillez renseigner exactement " +
                         "une des options sitée ci-dessus \u001B[0m");
         }
     }
