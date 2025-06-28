@@ -16,9 +16,6 @@ public class CleanInput {
                         "lettres (sans accent) et des chiffres.\u001B[0m");
             } else {
                 raw_user_input = raw_user_input.trim();
-                if (raw_user_input.isEmpty()) {
-                    throw new UserError("Vous devez entrer une chaîne de caractère non vide.");
-                }
                 return raw_user_input;
             }
     }
