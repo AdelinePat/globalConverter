@@ -36,22 +36,6 @@ public class AsciiUtils {
         }
     }
 
-    public static List<List<String>> parseStringIntoStringList(String user_input) {
-        List<List<String>> result = new ArrayList<>();
-        String[] words = user_input.split(" ");
-
-
-        for (String word : words) {
-            List<String> ascii_letters = new ArrayList<>();
-            for (char c : word.toCharArray()) {
-                ascii_letters.add(String.valueOf(c));
-            }
-            result.add(ascii_letters);
-        }
-        result.removeIf(List::isEmpty);
-        return result;
-    }
-
     static public Integer getAsciiCode(String c) throws AlgorithmError {
         Integer ascii_code = AsciiUtils.ascii_map.get(c);
         if (ascii_code == null) {
