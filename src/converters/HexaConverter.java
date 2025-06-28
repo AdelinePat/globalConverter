@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 public class HexaConverter implements IConverter {
-    public HexaConverter() {}
+    public HexaConverter() {
+        this.loadHexMaps();
+    }
 
-    private static final Map<String, Integer> hexToInt = new HashMap<>();
-    private static final Map<String, String> intToHex = new HashMap<>();
+    private final Map<String, Integer> hexToInt = new HashMap<>();
+    private final Map<String, String> intToHex = new HashMap<>();
 
-    static {
-        // map hexToInt
+    private void loadHexMaps() {
         hexToInt.put("0", 0);
         hexToInt.put("1", 1);
         hexToInt.put("2", 2);
@@ -38,6 +39,7 @@ public class HexaConverter implements IConverter {
         for (Map.Entry<String, Integer> entry : hexToInt.entrySet()) {
             intToHex.put(entry.getValue().toString(), entry.getKey());
         }
+
     }
 
     // Converts a decimal integer into a hexadecimal string
@@ -55,17 +57,15 @@ public class HexaConverter implements IConverter {
         return hex.toString();
     }
 
-    private Integer fromHexToDecimal (String hex_string) throws AlgorithmError {
+    private Integer fromHexToDecimal(String hex_string) throws AlgorithmError {
         int decimalValue = 0;
         for (int index = 0; index < hex_string.length(); index++) {
-            if (hex_string.charAt(index) != '0') {
-                String hexChar = String.valueOf(hex_string.charAt(index)).toUpperCase();
-                Integer val = this.hexToInt.get(hexChar);
-                if (val == null) {
-                    throw new AlgorithmError("Caractère hexadécimal invalide : " + hex_string.charAt(index));
-                }
-                decimalValue =  decimalValue * 16 + val;
+            String hexChar = String.valueOf(hex_string.charAt(index)).toUpperCase();
+            Integer val = this.hexToInt.get(hexChar);
+            if (val == null) {
+                throw new AlgorithmError("Caractère hexadécimal invalide : " + hexChar);
             }
+            decimalValue = decimalValue * 16 + val;
         }
         return decimalValue;
     }
@@ -73,21 +73,23 @@ public class HexaConverter implements IConverter {
     @Override
     public String conversion(String input_user) throws AlgorithmError {
         List<List<String>> parsed_user_string = Parsing.splitSentenceIntoLetterGroups(input_user);
-        List<String> result = new ArrayList<>();
-
+        StringBuilder result = new StringBuilder();
         try {
             for (List<String> word : parsed_user_string) {
+                StringBuilder hex_string = new StringBuilder();
                 for (String c : word) {
                     Integer ascii_code = AsciiUtils.getAsciiCode(c);
                     String hex_code = decimalToHexManual(ascii_code);
-                    result.add(hex_code);
+                    hex_string.append(hex_code);
+                    hex_string.append(" ");
                 }
-                result.add(" ");
+                result.append(hex_string);
+                result.append(" ");
             }
         } catch (AlgorithmError e) {
             System.out.println("\u001B[31mErreur d'Algorithme : \u001B[0m" + e.getMessage());
         }
-        return String.join(" ", result).trim();
+        return result.toString();
     }
 
     @Override
@@ -100,10 +102,6 @@ public class HexaConverter implements IConverter {
                 for (String hex_string: hexCode) {
                     Integer result = this.fromHexToDecimal(hex_string);
                     String letter = AsciiUtils.getCharacterFromAscii(result);
-//                    String letter = AsciiUtils.reverse_ascii_map.get(result);
-//                    if (letter == null) {
-//                        throw new AlgorithmError("Le code ASCII est NULL ou non trouvé dans ascii_table.json");
-//                    }
                     final_string.append((letter));
                 }
                 final_string.append(" ");

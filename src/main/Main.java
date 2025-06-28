@@ -1,6 +1,5 @@
 package main;
-import converter_factory.ConverterFactory;
-import user_interface.Menu;
+import user_interface.MenuView;
 import user_interface.MenuController;
 import utils.CleanInput;
 import caesar.CaesarCipher;
@@ -10,29 +9,27 @@ import custom_exceptions.UserError;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            int main_choice = 0;
-            do {
-                Menu.displayFirstInstruction();
-                MenuController.original_input = MenuController.handleUserInput();
-                Menu.displayMainMenu();
-                main_choice = MenuController.handleUserIntChoice();
-                switch (main_choice) {
-                    case 1: MenuController.changeNumericBase();
+        MenuView.displayProjectTitle();
+        String user_choice = new String();
+        do {
+            try {
+            MenuView.displayFirstInstruction();
+            MenuController.original_input = CleanInput.getCleanInput(MenuController.handleUserInput());
+            if (MenuController.original_input.equals("quitter") || MenuController.original_input.equals("-q")) {
+                user_choice = MenuController.original_input;
+            } else {
+                user_choice = MenuController.mainMenu();
+            }
+            } catch (UserError e) {
+                System.out.println("\u001B[36mErreur utilisateur : \u001B[0m " + e.getMessage());
+                continue;
+            }
+            catch (AlgorithmError e) {
+                System.out.println("\u001B[31mErreur d'Algorihtme : \u001B[0m" + e.getMessage());
+                continue;
+            }
+        } while (!user_choice.equals("quitter") && !user_choice.equals("-q"));
 
-                    case 2: return;
-                    case 3: return;
-                    default : throw new UserError("La commande n'a pas été reconnue \u001B[33mveuillez renseigner exactement" +
-                            "une des options sitée ci-dessus \u001B[0m");
-                }
-            } while (main_choice != 3);
-//            System.out.println("\u001B[35mConversion inverse             : \u001B[0m" + converter.reverseConversion(converted_input));
-        } catch (UserError e) {
-            System.out.println("\u001B[36mErreur utilisateur : \u001B[0m " + e.getMessage());
-        }
-        catch (AlgorithmError e) {
-            System.out.println("\u001B[31mErreur d'Algorihtme : \u001B[0m" + e.getMessage());
-        }
     }
 
 
