@@ -23,8 +23,8 @@ public class MenuView {
                 "\noctal ou -o" +
                 "\ndecimal ou -d" +
                 "\nbinary ou -b" +
-                "\nchiffrement ou -c" +
-                "\nquitter ou -q");
+                "\nencryption ou -e" +
+                "\nquit ou -q");
     }
     public static void subMenuChangeNumericBase() {
         System.out.println("\n1. Retranscrire les chiffres en lettre" +
