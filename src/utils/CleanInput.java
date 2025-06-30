@@ -10,6 +10,9 @@ public class CleanInput {
         return raw_user_input.matches(".*[^a-zA-Z0-9 ].*");
     }
 
+    public static boolean isValidChoice(String raw_user_choice) {
+        return raw_user_choice.matches(".*[^a-zA-Z0-9\\- ].*");
+    }
     public static String getCleanInput(String raw_user_input) throws UserError {
             if (CleanInput.isValidInput(raw_user_input)) {
                 throw new UserError("Des caractères non autorisés ont été utilisé. \u001B[33mveuillez utiliser uniquement des " +
@@ -29,6 +32,15 @@ public class CleanInput {
             result = result * 10 + digit;
         }
         return result;
+    }
+
+    public static String cleanChoice(String str) throws UserError {
+        if (CleanInput.isValidChoice(str)) {
+            throw new UserError("Des caractères non autorisés ont été utilisé. \u001B[33mveuillez utiliser uniquement les " +
+                    "options précisées ci-dessus.\u001B[0m");
+        } else {
+            return str;
+        }
     }
 
 }

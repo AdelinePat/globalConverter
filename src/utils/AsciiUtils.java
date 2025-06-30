@@ -20,7 +20,7 @@ public class AsciiUtils {
     }
 
     private static void loadAsciiTable() {
-        InputStream inputStream = AsciiUtils.class.getResourceAsStream("/ascii_table.json");
+        InputStream inputStream = AsciiUtils.class.getResourceAsStream("/ressources/ascii_table.json");
 
         if (inputStream == null) {
             System.out.println("File not found! Please check the path.");
