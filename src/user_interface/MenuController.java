@@ -32,7 +32,7 @@ public class MenuController {
     }
     public String mainMenu() throws AlgorithmError, UserError {
         MenuView.displayMenuNumericBase();
-        String user_choice = this.handleUserInput();
+        String user_choice = CleanInput.cleanChoice(this.handleUserInput());
         if (user_choice.equals("encryption") || user_choice.equals("-e")) {
             this.caesarCipher();
         } else if (user_choice.equals("quit") || user_choice.equals("-q")) {
