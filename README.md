@@ -1,4 +1,5 @@
 # globalConverter
+![Global Converter Screenshot](./ressources/globalConverter.png)
 ## Numeric Base Conversion & Caesar Cipher
 GlobalConverter is a Java console application that allows users to:
 - Convert strings into various numeric bases (binary, octal, decimal, hexadecimal)
